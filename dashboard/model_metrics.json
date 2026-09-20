@@ -1,0 +1,11 @@
+{
+  "accuracy": 0.92,
+  "precision_macro": 0.9259,
+  "recall_macro": 0.8906,
+  "f1_macro": 0.9032,
+  "roc_auc_macro_ovr": 0.9898,
+  "cv_accuracy_5fold_mean": 0.9556,
+  "n_train": 450,
+  "n_test": 150,
+  "note": "Metrics are computed on a SYNTHETIC dataset for pipeline validation only. They will be recalculated once real, anonymized LMS/attendance/CA data is available."
+}

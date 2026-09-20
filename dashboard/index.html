@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>EarlyAlertAI — Student Risk Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead__left">
+      <img class="masthead__logo masthead__logo--kdu" src="assets/kdu-logo.png" alt="General Sir John Kotelawala Defence University crest" />
+      <span class="masthead__divider"></span>
+      <img class="masthead__logo masthead__logo--club" src="assets/dataInspire-icon.png" alt="DatAInspire, AI and Data Science Club of KDU" />
+      <div class="masthead__titles">
+        <h1>EarlyAlertAI</h1>
+        <p>Early warning system for student burnout &amp; academic risk — DatAInspire, KDU AI &amp; Data Science Club</p>
+      </div>
+    </div>
+    <div class="masthead__right">
+      <span class="masthead__dot masthead__dot--demo"></span>
+      <span>Synthetic pilot data</span>
+    </div>
+  </header>
+
+  <div class="banner" id="dataBanner">
+    Figures below are generated from a synthetic dataset built to the shape of real LMS, attendance and CA
+    records. They exist to validate the pipeline before university data access is approved — no real
+    student information is used or shown here.
+  </div>
+
+  <main class="layout">
+
+    <aside class="panel filters">
+      <h2>Filter roster</h2>
+
+      <label class="field">
+        <span>Search by student ID</span>
+        <input type="text" id="searchInput" placeholder="e.g. KDU10123" autocomplete="off" />
+      </label>
+
+      <label class="field">
+        <span>Faculty</span>
+        <select id="facultyFilter">
+          <option value="all">All faculties</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Year of study</span>
+        <select id="yearFilter">
+          <option value="all">All years</option>
+        </select>
+      </label>
+
+      <fieldset class="field field--tiers">
+        <legend>Risk tier</legend>
+        <label class="tier-check tier-check--high">
+          <input type="checkbox" value="high" checked /> High
+        </label>
+        <label class="tier-check tier-check--moderate">
+          <input type="checkbox" value="moderate" checked /> Moderate
+        </label>
+        <label class="tier-check tier-check--low">
+          <input type="checkbox" value="low" checked /> Low
+        </label>
+      </fieldset>
+
+      <div class="model-note">
+        <h3>Model, in brief</h3>
+        <p>Ensemble of Random Forest, XGBoost and Logistic Regression. Every score is explained with
+          SHAP so an advisor can see exactly why a student was flagged.</p>
+        <dl id="metricsList" class="metrics-list"></dl>
+      </div>
+    </aside>
+
+    <section class="panel summary">
+      <div class="summary__stat summary__stat--total">
+        <span class="summary__number" id="statTotal">—</span>
+        <span class="summary__label">Students monitored</span>
+      </div>
+      <div class="summary__stat summary__stat--high">
+        <span class="summary__number" id="statHigh">—</span>
+        <span class="summary__label">High risk — priority intervention</span>
+      </div>
+      <div class="summary__stat summary__stat--moderate">
+        <span class="summary__number" id="statModerate">—</span>
+        <span class="summary__label">Moderate risk — advisor check-in</span>
+      </div>
+      <div class="summary__stat summary__stat--low">
+        <span class="summary__number" id="statLow">—</span>
+        <span class="summary__label">Low risk — routine monitoring</span>
+      </div>
+    </section>
+
+    <section class="panel roster">
+      <div class="roster__head">
+        <h2>Student risk roster</h2>
+        <span id="rosterCount" class="roster__count"></span>
+      </div>
+      <div class="roster__table-wrap">
+        <table class="roster__table">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Faculty</th>
+              <th>Year</th>
+              <th>Risk score</th>
+              <th>Tier</th>
+            </tr>
+          </thead>
+          <tbody id="rosterBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <button class="drawer__close" id="drawerClose" aria-label="Close">&times;</button>
+    <div id="drawerContent"></div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <footer class="site-footer">
+    <img class="site-footer__mark" src="assets/dataInspire-icon.png" alt="" aria-hidden="true" />
+    <p>Decision-support only — every flagged case is reviewed by an academic advisor or student welfare
+      officer before any action is taken. Built by DatAInspire, the KDU AI &amp; Data Science Club.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
